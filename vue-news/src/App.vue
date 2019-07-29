@@ -25,28 +25,6 @@ html, body {
 #app{
   padding-top: 50px;
 }
-ul,ol{
-	margin:0;
-	padding:0;
-}
-li{
-	border-bottom: 1px solid #ddd;
-	margin:0;
-	padding:10px 24px;
-}
-a{
-  color:rgb(15, 37, 160);
-  text-decoration: none;
-
-  &:hover{
-    text-decoration: underline;
-  }
-}
-.user-link{
-  text-decoration: none;
-  font-size: 12px;
-  color:rgb(30, 150, 50)
-}
 .page-enter-active, .page-leave-active {
   transition: opacity .3s;
 }
