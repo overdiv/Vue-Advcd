@@ -10,16 +10,19 @@
 
 <script>
 import UserProfile from '@/components/UserProfile'
+import ListMixin from '@/mixins/ListMixin'
+
 export default {
 	computed: {
 		userInfo() {
 			return this.$store.state.user;
 		},
 	},
-	created() {
-		const userName = this.$route.params.id;
-		this.$store.dispatch('FETCH_USER', userName);
-	},
+	mixins: [ListMixin],
+	// created() {
+	// 	const userName = this.$route.params.id;
+	// 	this.$store.dispatch('FETCH_USER', userName);
+	// },
 	components: {
 		UserProfile,
 	}

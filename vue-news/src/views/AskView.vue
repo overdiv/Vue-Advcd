@@ -12,6 +12,7 @@ export default {
 		ListItem
 	},
 	mixins: [ListMixin]
+
 	// created() {
 	// 	bus.$emit('start:spinner');
 	// 	setTimeout(() => {
