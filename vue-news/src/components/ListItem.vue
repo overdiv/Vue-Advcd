@@ -1,6 +1,6 @@
 <template>
 	<ul class="list-view">
-		<li v-for="item in listItems" v-bind:key="item.id">
+		<li v-for="item in fetchedList" v-bind:key="item.id">
 			
 			<div class="points">
 				{{item.points || 0}}
@@ -11,7 +11,6 @@
 				</template>
 				<template v-else>
 					<router-link v-bind:to="`/item/${item.id}`">{{ item.title }}</router-link>
-					
 				</template>
 				<div>
 					<router-link v-if="item.user" class="user-link" v-bind:to="`/user/${item.user}`">{{ item.user }}</router-link>
@@ -25,31 +24,24 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
 	computed: {
 		listItems(){
-			const name = this.$route.name;
-			if (name === 'news') {
-				return this.$store.state.news
-			} else if (name === 'ask') {
-				return this.$store.state.ask
-			} else if (name === 'jobs') {
-				return this.$store.state.jobs
-			}
-		}
-	},
-	created() {
-		// this.$store.dispatch('FETCH_NEWS')
-		const name = this.$route.name;
-		let actionName;
-		if (name === 'news') {
-			actionName = 'FETCH_NEWS'
-		} else if (name === 'ask') {
-			actionName = 'FETCH_ASK'
-		} else if (name === 'jobs') {
-			actionName = 'FETCH_JOBS'
-		}
-		this.$store.dispatch(actionName);
+			return this.$store.state.list;
+			// const name = this.$route.name;
+			// if (name === 'news') {
+			// 	return this.$store.state.news
+			// } else if (name === 'ask') {
+			// 	return this.$store.state.ask
+			// } else if (name === 'jobs') {
+			// 	return this.$store.state.jobs
+			// }
+		},
+		...mapGetters([
+			'fetchedList',
+		])
 	},
 }
 </script>

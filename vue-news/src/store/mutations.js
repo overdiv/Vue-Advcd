@@ -14,4 +14,7 @@ export default {
 	SET_ITEM(state, user) {
 		state.item = user;
 	},
+	SET_LIST(state, name) {
+		state.list = name
+	}
 }

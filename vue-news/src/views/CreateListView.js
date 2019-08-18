@@ -1,0 +1,25 @@
+import ListView from '@/views/ListView'
+import bus from '@/utils/bus'
+
+export default function createListView(name) {
+	return {
+		name,
+		created() {
+			bus.$emit('start:spinner');
+			setTimeout(() => {
+				this.$store.dispatch('FETCH_LIST', this.$route.name)
+					.then(() => {
+						console.log('fetched')
+						bus.$emit('end:spinner');
+					})
+					.catch(err => {
+						console.log(err);
+					});
+				bus.$emit('end:spinner');
+			}, 500);
+		},
+		render(createElement) {
+			return createElement(ListView);
+		}
+	}
+}
