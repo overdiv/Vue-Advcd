@@ -1,6 +1,14 @@
 <template>
   <div id="app">
     <tool-bar></tool-bar>
+    <div>
+      <button @click="loginUserAsync">Login</button><br>
+      <ul>
+        <li v-for="(item, idx) in items" :key="idx">
+            {{ item }}
+        </li>
+      </ul>
+    </div>
     <transition>
       <router-view></router-view>
     </transition>
@@ -12,6 +20,7 @@
 import ToolBar from '@/components/ToolBar'
 import Spinner from '@/components/Spinner'
 import bus from '@/utils/bus'
+import axios from 'axios'
 
 export default {
   components: {
@@ -21,6 +30,7 @@ export default {
   data() {
     return {
       loadingStatus: false,
+      items: [],
     }
   },
   methods: {
@@ -29,6 +39,31 @@ export default {
     },
     endSpinner() {
       this.loadingStatus = false;
+    },
+    loginUser() {
+			axios.get('https://jsonplaceholder.typicode.com/users/1')
+				.then(res => {
+					if (res.data.id === 1){
+						axios.get('https://jsonplaceholder.typicode.com/todos')
+							.then(res => {
+                this.items = res.data;
+							})
+					}
+				})
+				.catch(err => console.log(err))
+    },
+    async loginUserAsync() {
+      try {
+        const res = await axios.get('https://jsonplaceholder.typicode.com/users/1');
+        if (res.data.id === 1) {
+          console.log(res)
+          const list = await axios.get('https://jsonplaceholder.typicode.com/todos');
+          this.items = list.data;
+        }
+      } catch (error) {
+        console.log(error)
+      }
+      
     }
   },
   created() {
